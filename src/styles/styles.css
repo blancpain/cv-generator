@@ -1,0 +1,48 @@
+:root {
+  background-color: #343131;
+}
+
+.main--container {
+  background-color: #ffffff;
+  position: relative;
+  width: 800px;
+  height: 90vh;
+  margin-left: 5rem;
+  margin-top: 5rem;
+}
+
+header {
+  height: 220px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header--left,
+.header--right {
+  z-index: 2;
+  padding: 20px;
+}
+
+.header--shape-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.header--shape-divider svg {
+  display: block;
+  width: calc(240% + 1.3px);
+  height: 300px;
+}
+
+.header--shape-divider .shape-fill {
+  fill: #fbf2e4;
+}
+
+main {
+  margin-top: 4rem;
+}
