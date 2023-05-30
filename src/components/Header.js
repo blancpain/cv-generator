@@ -23,11 +23,11 @@ export default class Header extends Component {
           </svg>
         </div>
         <div className="header--left">
-          <h3>Full Stack Web Engineer</h3>
-          <h1>Yasen Dimitrov</h1>
+          <h3 className="title">Full Stack Web Engineer</h3>
+          <h1 className="name">Yasen Dimitrov</h1>
         </div>
         <div className="header--right">
-          <ul>
+          <ul className="header--list">
             <li>y_dimitrov@ymail.com</li>
             <li>https://www.linkedin.com/in/yasdim/</li>
             <li>+359 882 392 556</li>

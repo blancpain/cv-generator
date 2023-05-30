@@ -13,13 +13,23 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="main--container">
-        <Header />
-        <main>
-          <Work />
-          <Education />
-          <Skills />
-        </main>
+      <div className="content--container">
+        <div className="content--CV-input">
+          <Header />
+          <main>
+            <Work />
+            <Education />
+            <Skills />
+          </main>
+        </div>
+        {/* <div className="content--CV-input">
+          <Header />
+          <main>
+            <Work />
+            <Education />
+            <Skills />
+          </main>
+        </div> */}
       </div>
     );
   }

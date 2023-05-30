@@ -1,26 +1,47 @@
-:root {
-  background-color: #343131;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.main--container {
-  background-color: #ffffff;
-  position: relative;
-  width: 800px;
-  height: 90vh;
+:root {
+  background-color: #343131;
+  --free-text-font: "Poppins", sans-serif;
+  --title-font: "Prata", serif;
+}
+
+.content--container {
   margin-left: 5rem;
   margin-top: 5rem;
+  display: flex;
+  gap: 6rem;
+  justify-content: space-around;
+}
+
+.content--CV-input {
+  background-color: #ffffff;
+  position: relative;
+  max-width: 850px;
+  max-height: 90vh;
+  border: 1px solid black;
 }
 
 header {
   height: 220px;
   display: flex;
   justify-content: space-between;
+  padding: 45px;
+}
+
+.header--list li {
+  padding-bottom: 8px;
+  font-family: var(--title-font);
+  font-size: 15px;
 }
 
 .header--left,
 .header--right {
   z-index: 2;
-  padding: 20px;
 }
 
 .header--shape-divider {
@@ -35,8 +56,8 @@ header {
 
 .header--shape-divider svg {
   display: block;
-  width: calc(240% + 1.3px);
-  height: 300px;
+  width: calc(275% + 1.3px);
+  height: 330px;
 }
 
 .header--shape-divider .shape-fill {
@@ -44,5 +65,73 @@ header {
 }
 
 main {
-  margin-top: 4rem;
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template: 1fr 1fr / auto auto;
+  justify-content: space-between;
+  padding: 45px;
+}
+
+.title {
+  color: #ca6d18;
+  font-size: 25px;
+  line-height: 20px;
+  margin-bottom: 2rem;
+}
+
+.name {
+  font-family: var(--title-font);
+}
+
+.text-box-container {
+  width: 310px;
+}
+
+.work-title {
+  font-size: 20px;
+  line-height: 20px;
+  color: #222222;
+  margin-bottom: 0.3rem;
+}
+
+.sub-title {
+  font-size: 15px;
+  line-height: 16px;
+  color: #797979;
+  margin-bottom: 1rem;
+}
+
+.work-title,
+.sub-title,
+.title {
+  font-family: var(--title-font);
+  font-weight: 400;
+}
+
+.free-text {
+  margin-bottom: 2rem;
+  font-size: 13px;
+  line-height: 14px;
+}
+
+.skills-container {
+  grid-column: 1 / span 2;
+}
+
+.skills-container > ul,
+.free-text {
+  font-family: var(--free-text-font);
+  font-weight: 400;
+  color: #222222;
+}
+
+.skills-container > ul {
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+li {
+  list-style: none;
 }
