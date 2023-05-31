@@ -18,11 +18,12 @@
   justify-content: space-around;
 }
 
-.content--CV-input {
+.content--CV,
+.content--input {
   background-color: #ffffff;
   position: relative;
-  max-width: 850px;
-  max-height: 90vh;
+  min-width: 850px;
+  min-height: 90vh;
   border: 1px solid black;
 }
 
@@ -134,4 +135,124 @@ main {
 
 li {
   list-style: none;
+}
+
+/* Personal input styles */
+
+.personal-input {
+  padding: 45px;
+}
+
+.personal-input--form {
+  display: grid;
+  grid-template: 1fr 1fr / auto auto;
+  gap: 1rem;
+  justify-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"] {
+  font-family: var(--free-text-font);
+  margin-bottom: 5px;
+  height: 30px;
+  text-indent: 10px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: block;
+  width: 350px;
+}
+
+.personal-input--form button {
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 100px;
+  cursor: pointer;
+  width: 500px;
+  grid-column: 1 / span 2;
+  font-family: var(--free-text-font);
+}
+
+/* misc */
+.rounded {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* Work input styles */
+
+.work-input {
+  padding: 45px;
+}
+
+.work-input--form {
+  display: grid;
+  grid-template: 1fr 1fr / auto auto;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+button.add,
+button.delete {
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--free-text-font);
+}
+
+input[type="date"] {
+  font-family: var(--free-text-font);
+  margin-bottom: 5px;
+  height: 30px;
+  text-indent: 5px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: block;
+  width: 350px;
+}
+
+textarea {
+  font-family: var(--free-text-font);
+  margin-bottom: 5px;
+  text-indent: 5px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  text-indent: 10px;
+  min-width: 100%;
+  min-height: 60px;
+  resize: none;
+  grid-column: 1 / span 2;
+}
+
+/* Education input styles */
+
+.education-input {
+  padding: 45px;
+}
+
+.education-input--form {
+  display: grid;
+  grid-template: 1fr 1fr / auto auto;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+/* Skills input styles */
+
+.skills-input {
+  padding: 45px;
+}
+
+.skills-input--form {
+  display: flex;
+  gap: 1rem;
 }
