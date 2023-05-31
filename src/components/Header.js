@@ -7,6 +7,9 @@ export default class Header extends Component {
   }
 
   render() {
+    const { firstName, lastName, currentJobTitle, email, linkedIn, phone } =
+      this.props;
+
     return (
       <header>
         <div className="header--shape-divider">
@@ -23,14 +26,16 @@ export default class Header extends Component {
           </svg>
         </div>
         <div className="header--left">
-          <h3 className="title">Full Stack Web Engineer</h3>
-          <h1 className="name">Yasen Dimitrov</h1>
+          <h3 className="title">{currentJobTitle}</h3>
+          <h1 className="name">
+            {firstName} {lastName}
+          </h1>
         </div>
         <div className="header--right">
           <ul className="header--list">
-            <li>y_dimitrov@ymail.com</li>
-            <li>https://www.linkedin.com/in/yasdim/</li>
-            <li>+359 882 392 556</li>
+            <li>{email}</li>
+            <li>{linkedIn}</li>
+            <li>{phone}</li>
           </ul>
         </div>
       </header>

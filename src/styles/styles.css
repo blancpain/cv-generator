@@ -11,8 +11,7 @@
 }
 
 .content--container {
-  margin-left: 5rem;
-  margin-top: 5rem;
+  margin: 5rem;
   display: flex;
   gap: 6rem;
   justify-content: space-around;
