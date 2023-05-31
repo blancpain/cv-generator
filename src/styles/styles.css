@@ -177,6 +177,7 @@ input[type="url"] {
 
 /* misc */
 .rounded {
+  margin-top: 2rem;
   border-top: 8px solid #bbb;
   border-radius: 5px;
   margin-left: 15px;
@@ -186,7 +187,7 @@ input[type="url"] {
 /* Work input styles */
 
 .work-input {
-  padding: 45px;
+  padding: 0 45px 45px 45px;
 }
 
 .work-input--form {
@@ -235,7 +236,7 @@ textarea {
 /* Education input styles */
 
 .education-input {
-  padding: 45px;
+  padding: 0 45px 45px 45px;
 }
 
 .education-input--form {
@@ -248,10 +249,22 @@ textarea {
 /* Skills input styles */
 
 .skills-input {
-  padding: 45px;
+  padding: 0 45px 45px 45px;
 }
 
 .skills-input--form {
   display: flex;
   gap: 1rem;
+}
+
+/* Media queries */
+
+@media only screen and (max-width: 1000px) {
+  .content--container {
+    margin: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+  }
 }

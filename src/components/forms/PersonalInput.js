@@ -56,6 +56,7 @@ export default class PersonalInput extends Component {
             value={personalInfo.phone}
           />
         </form>
+        <hr className="rounded"></hr>
       </section>
     );
   }

@@ -40,6 +40,7 @@ export default class EducationInput extends Component {
           <button className="add">Add</button>
           <button className="delete">Delete</button>
         </form>
+        <hr className="rounded"></hr>
       </section>
     );
   }

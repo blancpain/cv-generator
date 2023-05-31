@@ -8,6 +8,9 @@ import PersonalInput from "./components/forms/PersonalInput";
 import WorkInput from "./components/forms/WorkInput";
 import EducationInput from "./components/forms/EducationInput";
 import SkillsInput from "./components/forms/SkillsInput";
+import { nanoid } from "nanoid";
+
+// use: id: nanoid()
 
 export default class App extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -23,13 +26,24 @@ export default class App extends Component {
         linkedIn: "https://www.linkedin.com/in/yasdim/",
         phone: "+359 888 888 888",
       },
-      workExperience: [],
+      workExperience: [
+        {
+          id: nanoid(),
+          jobTitle: "Full Stack Web Engineer",
+          employer: "Self taught",
+          startDate: "2021-06-01",
+          endDate: "",
+          comments:
+            "Doing the amazing Odin Project! Learning about web dev using HTMl, CSS, JavaScript, React and much more.",
+        },
+      ],
+      workInputElems: [<WorkInput key={nanoid()} id={nanoid()} />],
       education: [],
       skills: [],
     };
   }
 
-  handleChange = (e) => {
+  handlePersonalInfoChange = (e) => {
     const { value, name } = e.target;
     this.setState({
       personalInfo: {
@@ -40,18 +54,29 @@ export default class App extends Component {
   };
 
   render() {
+    const allWorkExperience = this.state.workExperience.map((item) => {
+      return (
+        <Work
+          key={item.id}
+          jobTitle={item.jobTitle}
+          employer={item.employer}
+          startDate={item.startDate}
+          endDate={item.endDate}
+          comments={item.comments}
+        />
+      );
+    });
+    const allWorkInputElements = this.state.workInputElems.map((item) => item);
+
     return (
       <div className="content--container">
         <div className="content--input">
           <PersonalInput
-            updateValues={this.handleChange}
+            updateValues={this.handlePersonalInfoChange}
             personalInfo={this.state.personalInfo}
           />
-          <hr className="rounded"></hr>
-          <WorkInput />
-          <hr className="rounded"></hr>
+          {allWorkInputElements}
           <EducationInput />
-          <hr className="rounded"></hr>
           <SkillsInput />
         </div>
         <div className="content--CV">
@@ -64,7 +89,7 @@ export default class App extends Component {
             phone={this.state.personalInfo.phone}
           />
           <main>
-            <Work />
+            {allWorkExperience}
             <Education />
             <Skills />
           </main>

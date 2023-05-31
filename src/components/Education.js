@@ -12,8 +12,6 @@ export default class Education extends Component {
       <div className="education-container">
         <h1 className="title">Education & Learning</h1>
         <TextBox />
-        <TextBox />
-        <TextBox />
       </div>
     );
   }
