@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Delete from "../buttons/Delete";
 
 export default class EducationInput extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -9,41 +10,38 @@ export default class EducationInput extends Component {
   render() {
     const { id, updateValues, educationInfo } = this.props;
 
+    const currentElem = educationInfo.find((elem) => elem.id === id);
+
     return (
-      <section className="education-input" id={id}>
-        <h1 className="title">Education & learning</h1>
-        <form className="education-input--form">
-          <input
-            type="text"
-            placeholder="Degree / course"
-            name="degree"
-            onChange={updateValues}
-            value={educationInfo.degree}
-          />
-          <input
-            type="text"
-            placeholder="Name of institution"
-            name="institution"
-            onChange={updateValues}
-            value={educationInfo.institution}
-          />
-          <input
-            type="date"
-            name="startDate"
-            onChange={updateValues}
-            value={educationInfo.startDate}
-          />
-          <input
-            type="date"
-            name="endDate"
-            onChange={updateValues}
-            value={educationInfo.endDate}
-          />
-          <button className="add">Add</button>
-          <button className="delete">Delete</button>
-        </form>
-        <hr className="rounded"></hr>
-      </section>
+      <form className="education-input--form" id={id}>
+        <input
+          type="text"
+          placeholder="Degree / course"
+          name="degree"
+          onChange={updateValues}
+          value={currentElem.degree}
+        />
+        <input
+          type="text"
+          placeholder="Name of institution"
+          name="institution"
+          onChange={updateValues}
+          value={currentElem.institution}
+        />
+        <input
+          type="date"
+          name="startDate"
+          onChange={updateValues}
+          value={currentElem.startDate}
+        />
+        <input
+          type="date"
+          name="endDate"
+          onChange={updateValues}
+          value={currentElem.endDate}
+        />
+        <Delete />
+      </form>
     );
   }
 }

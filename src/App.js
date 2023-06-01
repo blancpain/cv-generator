@@ -8,6 +8,7 @@ import PersonalInput from "./components/forms/PersonalInput";
 import WorkInput from "./components/forms/WorkInput";
 import EducationInput from "./components/forms/EducationInput";
 import SkillsInput from "./components/forms/SkillsInput";
+import Add from "./components/buttons/Add";
 import { nanoid } from "nanoid";
 
 export default class App extends Component {
@@ -86,11 +87,11 @@ export default class App extends Component {
     });
   };
 
-  //todo the "Add" button should essentially add to state 2 elems with identical IDs - an input elem and a UI elem
+  //todo the "Add" button should add to state 2 elems with identical IDs - an input elem and a UI elem
 
   handleWorkExperienceChange = (e) => {
     const { value, name } = e.target;
-    const { id } = e.target.parentNode.parentNode;
+    const { id } = e.target.parentNode;
 
     this.setState((prevState) => {
       // iterate over the workExperience array in state and update items if they match w/ id
@@ -111,7 +112,7 @@ export default class App extends Component {
 
   handleEducationExperienceChange = (e) => {
     const { value, name } = e.target;
-    const { id } = e.target.parentNode.parentNode;
+    const { id } = e.target.parentNode;
 
     this.setState((prevState) => {
       const updatedEducationExperience = prevState.education.map(
@@ -130,7 +131,7 @@ export default class App extends Component {
 
   handleSkillsChange = (e) => {
     const { value, name } = e.target;
-    const { id } = e.target.parentNode.parentNode;
+    const { id } = e.target.parentNode;
 
     this.setState((prevState) => {
       const updatedSkills = prevState.skills.map((prevSkills) => {
@@ -145,12 +146,71 @@ export default class App extends Component {
     });
   };
 
-  render() {
-    // initial state
-    const initialWorkState = this.state.workExperience[0];
-    const initialEducationState = this.state.education[0];
-    const initialSkillsState = this.state.skills[0];
+  addElement = (tag) => {
+    const newId = nanoid();
 
+    if (tag === "work") {
+      this.setState({
+        workInputElements: [
+          ...this.state.workInputElements,
+          {
+            id: newId,
+            updateValues: this.handleWorkExperienceChange,
+          },
+        ],
+        workExperience: [
+          ...this.state.workExperience,
+          {
+            id: newId,
+            jobTitle: "",
+            employer: "",
+            startDate: "",
+            endDate: "",
+            comments: "",
+          },
+        ],
+      });
+    } else if (tag === "education") {
+      this.setState({
+        educationInputElements: [
+          ...this.state.educationInputElements,
+          {
+            id: newId,
+            updateValues: this.handleEducationExperienceChange,
+          },
+        ],
+        education: [
+          ...this.state.education,
+          {
+            id: newId,
+            degree: "",
+            institution: "",
+            startDate: "",
+            endDate: "",
+          },
+        ],
+      });
+    } else if (tag === "skills") {
+      this.setState({
+        skillsInputElements: [
+          ...this.state.skillsInputElements,
+          {
+            id: newId,
+            updateValues: this.handleSkillsChange,
+          },
+        ],
+        skills: [
+          ...this.state.skills,
+          {
+            id: newId,
+            value: "",
+          },
+        ],
+      });
+    }
+  };
+
+  render() {
     // work experience
     const allWorkExperience = this.state.workExperience.map((item) => {
       return (
@@ -172,7 +232,7 @@ export default class App extends Component {
             key={item.id}
             id={item.id}
             updateValues={item.updateValues}
-            workInfo={initialWorkState}
+            workInfo={this.state.workExperience}
           />
         );
       }
@@ -197,7 +257,7 @@ export default class App extends Component {
           key={item.id}
           id={item.id}
           updateValues={item.updateValues}
-          educationInfo={initialEducationState}
+          educationInfo={this.state.education}
         />
       );
     });
@@ -212,7 +272,7 @@ export default class App extends Component {
           key={item.id}
           id={item.id}
           updateValues={item.updateValues}
-          skillsInfo={initialSkillsState}
+          skillsInfo={this.state.skills}
         />
       );
     });
@@ -224,9 +284,25 @@ export default class App extends Component {
             updateValues={this.handlePersonalInfoChange}
             personalInfo={this.state.personalInfo}
           />
-          {allWorkExperienceInputElements}
-          {allEducationInputs}
-          {allSkillsInputs}
+          <section className="work-input">
+            <h1 className="title">Work experience</h1>
+            {allWorkExperienceInputElements}
+            <Add tag="work" addElement={this.addElement} />
+            {allWorkExperienceInputElements.length && (
+              <hr className="rounded"></hr>
+            )}
+          </section>
+          <section className="education-input">
+            <h1 className="title">Education & learning</h1>
+            {allEducationInputs}
+            <Add tag="education" addElement={this.addElement} />
+            {allEducationInputs.length && <hr className="rounded"></hr>}
+          </section>
+          <section className="skills-input">
+            <h1 className="title">Skills</h1>
+            {allSkillsInputs}
+            <Add tag="skills" addElement={this.addElement} />
+          </section>
         </div>
         <div className="content--CV">
           <Header
