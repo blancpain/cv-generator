@@ -6,24 +6,11 @@ export default class Skills extends Component {
     super(props);
   }
 
+  //TODO fix below to have the title in the App component
+  //todo for the below we should also move the ul to App js and just add LIs
+
   render() {
-    return (
-      <div className="skills-container">
-        <h1 className="title">Skills</h1>
-        <ul>
-          <li>Skill 2</li>
-          <li>Skill 3</li>
-          <li>Skill 4</li>
-          <li>Skill 5</li>
-          <li>Skill 1</li>
-          <li>Skill 2</li>
-          <li>Skill 3</li>
-          <li>Skill 4</li>
-          <li>Skill 5</li>
-          <li>Skill 1</li>
-          <li>Skill 2</li>
-        </ul>
-      </div>
-    );
+    const { value, id } = this.props;
+    return <li id={id}>{value}</li>;
   }
 }

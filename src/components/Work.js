@@ -7,7 +7,7 @@ export default class Work extends Component {
   }
 
   render() {
-    const { jobTitle, employer, startDate, endDate, comments } = this.props;
+    const { jobTitle, employer, startDate, endDate, comments, id } = this.props;
 
     // convert dates (if provided) to presentable format
     let convertedStartDate =
@@ -24,15 +24,12 @@ export default class Work extends Component {
           })} ${new Date(endDate).getFullYear()}`;
 
     return (
-      <div className="work-container">
-        <h1 className="title">Work experience</h1>
-        <div className="text-box-container">
-          <h3 className="work-title">{jobTitle}</h3>
-          <h4 className="sub-title">
-            {employer}, {convertedStartDate} - {convertedEndDate}
-          </h4>
-          <p className="free-text">{comments}</p>
-        </div>
+      <div className="text-box-container" id={id}>
+        <h3 className="work-title">{jobTitle}</h3>
+        <h4 className="sub-title">
+          {employer}, {convertedStartDate} - {convertedEndDate}
+        </h4>
+        <p className="free-text">{comments}</p>
       </div>
     );
   }

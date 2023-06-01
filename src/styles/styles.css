@@ -87,7 +87,8 @@ main {
   width: 310px;
 }
 
-.work-title {
+.work-title,
+.education-title {
   font-size: 20px;
   line-height: 20px;
   color: #222222;
@@ -103,7 +104,8 @@ main {
 
 .work-title,
 .sub-title,
-.title {
+.title,
+.education-title {
   font-family: var(--title-font);
   font-weight: 400;
 }
@@ -226,7 +228,6 @@ textarea {
   text-indent: 5px;
   border: 1px solid #444;
   border-radius: 5px;
-  text-indent: 10px;
   min-width: 100%;
   min-height: 60px;
   resize: none;

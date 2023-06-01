@@ -7,16 +7,18 @@ export default class SkillsInput extends Component {
   }
 
   render() {
+    const { id, updateValues, skillsInfo } = this.props;
+
     return (
-      <section className="skills-input">
+      <section className="skills-input" id={id}>
         <h1 className="title">Skills</h1>
         <form className="skills-input--form">
           <input
             type="text"
             placeholder="Skill"
-            name="skill"
-            // onChange={}
-            // value={}
+            name="value"
+            onChange={updateValues}
+            value={skillsInfo.value}
           />
           <button className="add">Add</button>
           <button className="delete">Delete</button>

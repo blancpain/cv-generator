@@ -7,35 +7,37 @@ export default class EducationInput extends Component {
   }
 
   render() {
+    const { id, updateValues, educationInfo } = this.props;
+
     return (
-      <section className="education-input">
+      <section className="education-input" id={id}>
         <h1 className="title">Education & learning</h1>
         <form className="education-input--form">
           <input
             type="text"
             placeholder="Degree / course"
             name="degree"
-            // onChange={}
-            // value={}
+            onChange={updateValues}
+            value={educationInfo.degree}
           />
           <input
             type="text"
             placeholder="Name of institution"
             name="institution"
-            // onChange={}
-            // value={}
+            onChange={updateValues}
+            value={educationInfo.institution}
           />
           <input
             type="date"
             name="startDate"
-            // onChange={}
-            // value={}
+            onChange={updateValues}
+            value={educationInfo.startDate}
           />
           <input
             type="date"
             name="endDate"
-            // onChange={}
-            // value={}
+            onChange={updateValues}
+            value={educationInfo.endDate}
           />
           <button className="add">Add</button>
           <button className="delete">Delete</button>
