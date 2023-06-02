@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.0",
     "nanoid": "^4.0.2"
   }
 }

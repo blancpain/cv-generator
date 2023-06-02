@@ -11,8 +11,6 @@ export default class SkillsInput extends Component {
     const { id, updateValues, skillsInfo, deleteElements, tag } = this.props;
     const currentElem = skillsInfo.find((elem) => elem.id === id);
 
-    //todo conditionally style the button below in skills; need to create a styles var and pass as props
-
     return (
       <form className="skills-input--form" id={id}>
         <input

@@ -87,8 +87,6 @@ export default class App extends Component {
     });
   };
 
-  //todo the "Add" button should add to state 2 elems with identical IDs - an input elem and a UI elem
-
   handleWorkExperienceChange = (e) => {
     const { value, name } = e.target;
     const { id } = e.target.parentNode;

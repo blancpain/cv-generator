@@ -197,9 +197,14 @@ button.delete {
   grid-column: 1 / span 2;
   font-size: 13px;
 }
+
 button.add:hover,
 button.delete:hover {
   filter: opacity(55%);
+}
+
+.skills-input--form > button.delete {
+  width: 100%;
 }
 
 input[type="date"] {
@@ -270,6 +275,9 @@ textarea {
 
 li {
   list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 form {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Icon } from "@iconify/react";
 
 export default class Header extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -33,9 +34,28 @@ export default class Header extends Component {
         </div>
         <div className="header--right">
           <ul className="header--list">
-            <li>{email}</li>
-            <li>{linkedIn}</li>
-            <li>{phone}</li>
+            <li>
+              <Icon
+                icon="ic:outline-email"
+                color="#ca6d18"
+                width="25"
+                height="25"
+              />
+              {email}
+            </li>
+            <li>
+              <Icon
+                icon="mdi:linkedin"
+                color="#ca6d18"
+                width="25"
+                height="25"
+              />
+              {linkedIn}
+            </li>
+            <li>
+              <Icon icon="ph:phone" color="#ca6d18" width="25" height="25" />
+              {phone}
+            </li>
           </ul>
         </div>
       </header>
