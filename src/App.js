@@ -77,6 +77,17 @@ export default class App extends Component {
     };
   }
 
+  resetForm = () => {
+    this.setState({
+      workExperience: [],
+      workInputElements: [],
+      education: [],
+      educationInputElements: [],
+      skills: [],
+      skillsInputElements: [],
+    });
+  };
+
   handlePersonalInfoChange = (e) => {
     const { value, name } = e.target;
     this.setState({
@@ -372,6 +383,9 @@ export default class App extends Component {
             <h1 className="title">Skills</h1>
             {allSkillsInputs}
             <Add tag="skills" addElement={this.addElement} />
+            <button className="reset" onClick={this.resetForm}>
+              Reset
+            </button>
           </section>
         </div>
         <div className="content--CV">

@@ -13,7 +13,7 @@
 .content--container {
   margin: 5rem;
   display: flex;
-  gap: 6rem;
+  gap: 3rem;
   justify-content: space-around;
 }
 
@@ -179,7 +179,8 @@ input[type="url"] {
 }
 
 button.add,
-button.delete {
+button.delete,
+button.reset {
   font-weight: 600;
   padding: 4px;
   font-family: var(--free-text-font);
@@ -188,7 +189,8 @@ button.delete {
   border-radius: 8px;
 }
 
-button.add {
+button.add,
+button.reset {
   font-size: 17px;
   width: 100%;
 }
@@ -198,8 +200,15 @@ button.delete {
   font-size: 13px;
 }
 
+button.reset {
+  margin-top: 1rem;
+  background-color: salmon;
+  color: whitesmoke;
+}
+
 button.add:hover,
-button.delete:hover {
+button.delete:hover,
+button.reset:hover {
   filter: opacity(55%);
 }
 
