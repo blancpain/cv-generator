@@ -10,6 +10,8 @@ import EducationInput from "./components/forms/EducationInput";
 import SkillsInput from "./components/forms/SkillsInput";
 import Add from "./components/buttons/Add";
 import { nanoid } from "nanoid";
+// import jsPDF from "jspdf";
+// import ReactDOMServer from "react-dom/server";
 
 export default class App extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -87,6 +89,16 @@ export default class App extends Component {
       skillsInputElements: [],
     });
   };
+
+  //todo -> implement below to generate a PDF file
+  // generatePDF = () => {
+  //   select JSX elem (have to use hooks probably)
+  //   const jsxElem = ???
+  //   const report = new jsPDF({ format: "a4", unit: "px" });
+  //   report.html(ReactDOMServer.renderToString(jsxElem)).then(() => {
+  //     report.save("CV.pdf");
+  //   });
+  // };
 
   handlePersonalInfoChange = (e) => {
     const { value, name } = e.target;
@@ -360,6 +372,9 @@ export default class App extends Component {
 
     return (
       <div className="content--container">
+        <div className="content--title-container">
+          <h1>CV Generator</h1>
+        </div>
         <div className="content--input">
           <PersonalInput
             updateValues={this.handlePersonalInfoChange}
@@ -386,6 +401,7 @@ export default class App extends Component {
             <button className="reset" onClick={this.resetForm}>
               Reset
             </button>
+            <button className="generate-pdf">Generate PDF</button>
           </section>
         </div>
         <div className="content--CV">

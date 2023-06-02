@@ -26,6 +26,21 @@
   border: 1px solid black;
 }
 
+.content--title-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ca6d18;
+  font-family: var(--title-font);
+}
+.content--title-container h1 {
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-size: 40px;
+  color: #222222;
+}
+
 header {
   height: 220px;
   display: flex;
@@ -180,7 +195,8 @@ input[type="url"] {
 
 button.add,
 button.delete,
-button.reset {
+button.reset,
+button.generate-pdf {
   font-weight: 600;
   padding: 4px;
   font-family: var(--free-text-font);
@@ -190,7 +206,8 @@ button.reset {
 }
 
 button.add,
-button.reset {
+button.reset,
+button.generate-pdf {
   font-size: 17px;
   width: 100%;
 }
@@ -206,9 +223,16 @@ button.reset {
   color: whitesmoke;
 }
 
+button.generate-pdf {
+  margin-top: 1rem;
+  background-color: rgb(8, 120, 194);
+  color: whitesmoke;
+}
+
 button.add:hover,
 button.delete:hover,
-button.reset:hover {
+button.reset:hover,
+button.generate-pdf:hover {
   filter: opacity(55%);
 }
 
@@ -296,7 +320,6 @@ form {
 
 @media only screen and (max-width: 1000px) {
   .content--container {
-    margin: 4rem;
     display: flex;
     flex-direction: column;
     gap: 3rem;
