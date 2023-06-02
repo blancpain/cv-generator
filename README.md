@@ -1,3 +1,7 @@
 # CV Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+First project using React. Getting familiar with state, props and class based components.
+
+TODO: Refactor to use function based comps (hooks etc); Add option to generate PDF. 
+
+## [LIVE PREVIEW](https://blancpain.github.io/cv-generator/)
