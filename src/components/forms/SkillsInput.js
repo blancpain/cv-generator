@@ -8,7 +8,7 @@ export default class SkillsInput extends Component {
   }
 
   render() {
-    const { id, updateValues, skillsInfo } = this.props;
+    const { id, updateValues, skillsInfo, deleteElements, tag } = this.props;
     const currentElem = skillsInfo.find((elem) => elem.id === id);
 
     //todo conditionally style the button below in skills; need to create a styles var and pass as props
@@ -22,7 +22,7 @@ export default class SkillsInput extends Component {
           onChange={updateValues}
           value={currentElem.value}
         />
-        <Delete />
+        <Delete tag={tag} deleteElements={deleteElements} />
       </form>
     );
   }

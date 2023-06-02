@@ -8,7 +8,7 @@ export default class WorkInput extends Component {
   }
 
   render() {
-    const { id, updateValues, workInfo } = this.props;
+    const { id, updateValues, workInfo, deleteElements, tag } = this.props;
 
     // find targeted element in work state array
     const currentElem = workInfo.find((elem) => elem.id === id);
@@ -47,7 +47,7 @@ export default class WorkInput extends Component {
           onChange={updateValues}
           value={currentElem.comments}
         />
-        <Delete />
+        <Delete tag={tag} deleteElements={deleteElements} />
       </form>
     );
   }

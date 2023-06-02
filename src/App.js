@@ -210,6 +210,72 @@ export default class App extends Component {
     }
   };
 
+  deleteElements = (e, tag) => {
+    e.preventDefault();
+    const { id } = e.target.parentNode;
+
+    if (tag === "work") {
+      this.setState((prevState) => {
+        const updatedWorkInputElements = prevState.workInputElements.filter(
+          (elem) => elem.id !== id
+        );
+
+        return {
+          workInputElements: updatedWorkInputElements,
+        };
+      });
+
+      this.setState((prevState) => {
+        const updatedWorkUIElements = prevState.workExperience.filter(
+          (elem) => elem.id !== id
+        );
+
+        return {
+          workExperience: updatedWorkUIElements,
+        };
+      });
+    } else if (tag === "education") {
+      this.setState((prevState) => {
+        const updatedEducationInputElements =
+          prevState.educationInputElements.filter((elem) => elem.id !== id);
+
+        return {
+          educationInputElements: updatedEducationInputElements,
+        };
+      });
+
+      this.setState((prevState) => {
+        const updatedEducationUIElements = prevState.education.filter(
+          (elem) => elem.id !== id
+        );
+
+        return {
+          education: updatedEducationUIElements,
+        };
+      });
+    } else if (tag === "skills") {
+      this.setState((prevState) => {
+        const updatedSkillsInputElements = prevState.skillsInputElements.filter(
+          (elem) => elem.id !== id
+        );
+
+        return {
+          skillsInputElements: updatedSkillsInputElements,
+        };
+      });
+
+      this.setState((prevState) => {
+        const updatedSkillsUIElements = prevState.skills.filter(
+          (elem) => elem.id !== id
+        );
+
+        return {
+          skills: updatedSkillsUIElements,
+        };
+      });
+    }
+  };
+
   render() {
     // work experience
     const allWorkExperience = this.state.workExperience.map((item) => {
@@ -233,6 +299,8 @@ export default class App extends Component {
             id={item.id}
             updateValues={item.updateValues}
             workInfo={this.state.workExperience}
+            deleteElements={this.deleteElements}
+            tag="work"
           />
         );
       }
@@ -258,6 +326,8 @@ export default class App extends Component {
           id={item.id}
           updateValues={item.updateValues}
           educationInfo={this.state.education}
+          deleteElements={this.deleteElements}
+          tag="education"
         />
       );
     });
@@ -273,6 +343,8 @@ export default class App extends Component {
           id={item.id}
           updateValues={item.updateValues}
           skillsInfo={this.state.skills}
+          deleteElements={this.deleteElements}
+          tag="skills"
         />
       );
     });
@@ -288,7 +360,7 @@ export default class App extends Component {
             <h1 className="title">Work experience</h1>
             {allWorkExperienceInputElements}
             <Add tag="work" addElement={this.addElement} />
-            {allWorkExperienceInputElements.length && (
+            {allWorkExperienceInputElements.length !== 0 && (
               <hr className="rounded"></hr>
             )}
           </section>
@@ -296,7 +368,7 @@ export default class App extends Component {
             <h1 className="title">Education & learning</h1>
             {allEducationInputs}
             <Add tag="education" addElement={this.addElement} />
-            {allEducationInputs.length && <hr className="rounded"></hr>}
+            {allEducationInputs.length !== 0 && <hr className="rounded"></hr>}
           </section>
           <section className="skills-input">
             <h1 className="title">Skills</h1>

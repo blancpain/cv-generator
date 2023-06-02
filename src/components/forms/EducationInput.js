@@ -8,7 +8,7 @@ export default class EducationInput extends Component {
   }
 
   render() {
-    const { id, updateValues, educationInfo } = this.props;
+    const { id, updateValues, educationInfo, deleteElements, tag } = this.props;
 
     const currentElem = educationInfo.find((elem) => elem.id === id);
 
@@ -40,7 +40,7 @@ export default class EducationInput extends Component {
           onChange={updateValues}
           value={currentElem.endDate}
         />
-        <Delete />
+        <Delete tag={tag} deleteElements={deleteElements} />
       </form>
     );
   }

@@ -7,6 +7,12 @@ export default class Delete extends Component {
   }
 
   render() {
-    return <button className="delete">Delete</button>;
+    const { tag, deleteElements } = this.props;
+
+    return (
+      <button className="delete" onClick={(e) => deleteElements(e, tag)}>
+        Delete
+      </button>
+    );
   }
 }
