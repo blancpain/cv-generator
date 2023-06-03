@@ -81,6 +81,14 @@ export default class App extends Component {
 
   resetForm = () => {
     this.setState({
+      personalInfo: {
+        firstName: "",
+        lastName: "",
+        currentJobTitle: "",
+        email: "",
+        linkedIn: "",
+        phone: "",
+      },
       workExperience: [],
       workInputElements: [],
       education: [],
