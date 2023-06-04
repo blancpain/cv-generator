@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./styles/styles.css";
 import Header from "./components/Header";
 import Skills from "./components/Skills";
@@ -13,182 +13,75 @@ import { nanoid } from "nanoid";
 // import jsPDF from "jspdf";
 // import ReactDOMServer from "react-dom/server";
 
-export default class App extends Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
+export default function App() {
+  // initial IDs to link input elements with UI elements
+  const initialWorkExperienceID = nanoid();
+  const initialEducationHistoryID = nanoid();
+  const initialSkillsID = nanoid();
 
-    // initial IDs to link input elements with UI element
-    this.initialWorkExperienceID = nanoid();
-    this.initialEducationHistoryID = nanoid();
-    this.initialSkillsID = nanoid();
-
-    this.state = {
-      personalInfo: {
-        firstName: "Yasen",
-        lastName: "Dimitrov",
-        currentJobTitle: "Full Stack Web Engineer",
-        email: "random@email.com",
-        linkedIn: "https://www.linkedin.com/in/yasdim/",
-        phone: "+359 888 888 888",
-      },
-      workExperience: [
-        {
-          id: this.initialWorkExperienceID,
-          jobTitle: "Full Stack Web Engineer",
-          employer: "Self taught",
-          startDate: "2021-06-01",
-          endDate: "",
-          comments:
-            "Going through the amazing curriculum of the Odin Project! Learning all about web dev using HTML, CSS, JavaScript, React and more!",
-        },
-      ],
-      workInputElements: [
-        {
-          id: this.initialWorkExperienceID,
-          updateValues: this.handleWorkExperienceChange,
-        },
-      ],
-      education: [
-        {
-          id: this.initialEducationHistoryID,
-          degree: "International Business Law",
-          institution: "Catolica Business School",
-          startDate: "2014-09-01",
-          endDate: "2015-07-01",
-        },
-      ],
-      educationInputElements: [
-        {
-          id: this.initialEducationHistoryID,
-          updateValues: this.handleEducationExperienceChange,
-        },
-      ],
-      skills: [
-        {
-          id: this.initialSkillsID,
-          value: "Web development",
-        },
-      ],
-      skillsInputElements: [
-        {
-          id: this.initialSkillsID,
-          updateValues: this.handleSkillsChange,
-        },
-      ],
-    };
-  }
-
-  resetForm = () => {
-    this.setState({
-      personalInfo: {
-        firstName: "",
-        lastName: "",
-        currentJobTitle: "",
-        email: "",
-        linkedIn: "",
-        phone: "",
-      },
-      workExperience: [],
-      workInputElements: [],
-      education: [],
-      educationInputElements: [],
-      skills: [],
-      skillsInputElements: [],
-    });
-  };
-
-  //todo -> implement below to generate a PDF file
-  // generatePDF = () => {
-  //   select JSX elem (have to use hooks probably)
-  //   const jsxElem = ???
-  //   const report = new jsPDF({ format: "a4", unit: "px" });
-  //   report.html(ReactDOMServer.renderToString(jsxElem)).then(() => {
-  //     report.save("CV.pdf");
-  //   });
-  // };
-
-  handlePersonalInfoChange = (e) => {
+  // change handlers
+  const handlePersonalInfoChange = (e) => {
     const { value, name } = e.target;
-    this.setState({
-      personalInfo: {
-        ...this.state.personalInfo,
-        [name]: value,
-      },
+
+    setPersonalInfo({
+      ...personalInfo,
+      [name]: value,
     });
   };
 
-  handleWorkExperienceChange = (e) => {
+  const handleWorkExperienceChange = (e) => {
     const { value, name } = e.target;
     const { id } = e.target.parentNode;
 
-    this.setState((prevState) => {
-      // iterate over the workExperience array in state and update items if they match w/ id
-      // then we return the updated array that includes the old and (any) new items
-      const updatedWorkExperience = prevState.workExperience.map(
-        (prevWorkExp) => {
-          return prevWorkExp.id === id
-            ? { ...prevWorkExp, [name]: value }
-            : prevWorkExp;
-        }
-      );
-
-      return {
-        workExperience: updatedWorkExperience,
-      };
-    });
+    setWorkExperience((prevState) =>
+      prevState.map((workExp) => {
+        return workExp.id === id ? { ...workExp, [name]: value } : workExp;
+      })
+    );
   };
 
-  handleEducationExperienceChange = (e) => {
+  const handleEducationExperienceChange = (e) => {
     const { value, name } = e.target;
     const { id } = e.target.parentNode;
 
-    this.setState((prevState) => {
-      const updatedEducationExperience = prevState.education.map(
-        (prevEducation) => {
-          return prevEducation.id === id
-            ? { ...prevEducation, [name]: value }
-            : prevEducation;
-        }
-      );
-
-      return {
-        education: updatedEducationExperience,
-      };
-    });
+    setEducation((prevState) =>
+      prevState.map((education) => {
+        return education.id === id
+          ? { ...education, [name]: value }
+          : education;
+      })
+    );
   };
 
-  handleSkillsChange = (e) => {
+  const handleSkillsChange = (e) => {
     const { value, name } = e.target;
     const { id } = e.target.parentNode;
 
-    this.setState((prevState) => {
-      const updatedSkills = prevState.skills.map((prevSkills) => {
-        return prevSkills.id === id
-          ? { ...prevSkills, [name]: value }
-          : prevSkills;
-      });
-
-      return {
-        skills: updatedSkills,
-      };
-    });
+    setSkills((prevState) =>
+      prevState.map((skill) => {
+        return skill.id === id ? { ...skill, [name]: value } : skill;
+      })
+    );
   };
 
-  addElement = (tag) => {
+  // general functions
+  const addElement = (tag) => {
     const newId = nanoid();
 
     if (tag === "work") {
-      this.setState({
-        workInputElements: [
-          ...this.state.workInputElements,
+      setWorkInputElements((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
-            updateValues: this.handleWorkExperienceChange,
+            updateValues: handleWorkExperienceChange,
           },
-        ],
-        workExperience: [
-          ...this.state.workExperience,
+        ];
+      });
+
+      setWorkExperience((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
             jobTitle: "",
@@ -197,19 +90,22 @@ export default class App extends Component {
             endDate: "",
             comments: "",
           },
-        ],
+        ];
       });
     } else if (tag === "education") {
-      this.setState({
-        educationInputElements: [
-          ...this.state.educationInputElements,
+      setEducationInputElements((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
-            updateValues: this.handleEducationExperienceChange,
+            updateValues: handleEducationExperienceChange,
           },
-        ],
-        education: [
-          ...this.state.education,
+        ];
+      });
+
+      setEducation((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
             degree: "",
@@ -217,226 +113,289 @@ export default class App extends Component {
             startDate: "",
             endDate: "",
           },
-        ],
+        ];
       });
     } else if (tag === "skills") {
-      this.setState({
-        skillsInputElements: [
-          ...this.state.skillsInputElements,
+      setSkillsInputElements((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
-            updateValues: this.handleSkillsChange,
+            updateValues: handleSkillsChange,
           },
-        ],
-        skills: [
-          ...this.state.skills,
+        ];
+      });
+
+      setSkills((prevState) => {
+        return [
+          ...prevState,
           {
             id: newId,
             value: "",
           },
-        ],
+        ];
       });
     }
   };
 
-  deleteElements = (e, tag) => {
+  const deleteElements = (e, tag) => {
     e.preventDefault();
     const { id } = e.target.parentNode;
 
     if (tag === "work") {
-      this.setState((prevState) => {
-        const updatedWorkInputElements = prevState.workInputElements.filter(
-          (elem) => elem.id !== id
-        );
+      setWorkInputElements((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
 
-        return {
-          workInputElements: updatedWorkInputElements,
-        };
-      });
-
-      this.setState((prevState) => {
-        const updatedWorkUIElements = prevState.workExperience.filter(
-          (elem) => elem.id !== id
-        );
-
-        return {
-          workExperience: updatedWorkUIElements,
-        };
-      });
+      setWorkExperience((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
     } else if (tag === "education") {
-      this.setState((prevState) => {
-        const updatedEducationInputElements =
-          prevState.educationInputElements.filter((elem) => elem.id !== id);
+      setEducationInputElements((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
 
-        return {
-          educationInputElements: updatedEducationInputElements,
-        };
-      });
-
-      this.setState((prevState) => {
-        const updatedEducationUIElements = prevState.education.filter(
-          (elem) => elem.id !== id
-        );
-
-        return {
-          education: updatedEducationUIElements,
-        };
-      });
+      setEducation((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
     } else if (tag === "skills") {
-      this.setState((prevState) => {
-        const updatedSkillsInputElements = prevState.skillsInputElements.filter(
-          (elem) => elem.id !== id
-        );
+      setSkillsInputElements((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
 
-        return {
-          skillsInputElements: updatedSkillsInputElements,
-        };
-      });
-
-      this.setState((prevState) => {
-        const updatedSkillsUIElements = prevState.skills.filter(
-          (elem) => elem.id !== id
-        );
-
-        return {
-          skills: updatedSkillsUIElements,
-        };
-      });
+      setSkills((prevState) =>
+        prevState.filter((elem) => {
+          return elem.id !== id;
+        })
+      );
     }
   };
 
-  render() {
-    // work experience
-    const allWorkExperience = this.state.workExperience.map((item) => {
-      return (
-        <Work
-          key={item.id}
-          id={item.id}
-          jobTitle={item.jobTitle}
-          employer={item.employer}
-          startDate={item.startDate}
-          endDate={item.endDate}
-          comments={item.comments}
-        />
-      );
+  const resetForm = () => {
+    setPersonalInfo({
+      firstName: "",
+      lastName: "",
+      currentJobTitle: "",
+      email: "",
+      linkedIn: "",
+      phone: "",
     });
-    const allWorkExperienceInputElements = this.state.workInputElements.map(
-      (item) => {
-        return (
-          <WorkInput
-            key={item.id}
-            id={item.id}
-            updateValues={item.updateValues}
-            workInfo={this.state.workExperience}
-            deleteElements={this.deleteElements}
-            tag="work"
-          />
-        );
-      }
-    );
+    setWorkExperience([]);
+    setWorkInputElements([]);
+    setEducation([]);
+    setEducationInputElements([]);
+    setSkills([]);
+    setSkillsInputElements([]);
+  };
 
-    // education
-    const allEducation = this.state.education.map((item) => {
-      return (
-        <Education
-          key={item.id}
-          id={item.id}
-          degree={item.degree}
-          institution={item.institution}
-          startDate={item.startDate}
-          endDate={item.endDate}
-        />
-      );
-    });
-    const allEducationInputs = this.state.educationInputElements.map((item) => {
-      return (
-        <EducationInput
-          key={item.id}
-          id={item.id}
-          updateValues={item.updateValues}
-          educationInfo={this.state.education}
-          deleteElements={this.deleteElements}
-          tag="education"
-        />
-      );
-    });
+  //todo -> implement below to generate a PDF file
+  // const generatePDF = () => {
+  //   select JSX elem (have to use hooks probably)
+  //   const jsxElem = ???
+  //   const report = new jsPDF({ format: "a4", unit: "px" });
+  //   report.html(ReactDOMServer.renderToString(jsxElem)).then(() => {
+  //     report.save("CV.pdf");
+  //   });
+  // };
 
-    // skills
-    const allSkills = this.state.skills.map((item) => {
-      return <Skills key={item.id} id={item.id} value={item.value} />;
-    });
-    const allSkillsInputs = this.state.skillsInputElements.map((item) => {
-      return (
-        <SkillsInput
-          key={item.id}
-          id={item.id}
-          updateValues={item.updateValues}
-          skillsInfo={this.state.skills}
-          deleteElements={this.deleteElements}
-          tag="skills"
-        />
-      );
-    });
+  // state
+  const [personalInfo, setPersonalInfo] = useState({
+    firstName: "Yasen",
+    lastName: "Dimitrov",
+    currentJobTitle: "Full Stack Web Engineer",
+    email: "random@email.com",
+    linkedIn: "https://www.linkedin.com/in/yasdim/",
+    phone: "+359 888 888 888",
+  });
 
+  const [workExperience, setWorkExperience] = useState([
+    {
+      id: initialWorkExperienceID,
+      jobTitle: "Full Stack Web Engineer",
+      employer: "Self taught",
+      startDate: "2021-06-01",
+      endDate: "",
+      comments:
+        "Going through the amazing curriculum of the Odin Project! Learning all about web dev using HTML, CSS, JavaScript, React and more!",
+    },
+  ]);
+
+  const [workInputElements, setWorkInputElements] = useState([
+    {
+      id: initialWorkExperienceID,
+      updateValues: handleWorkExperienceChange,
+    },
+  ]);
+
+  const [education, setEducation] = useState([
+    {
+      id: initialEducationHistoryID,
+      degree: "International Business Law",
+      institution: "Catolica Business School",
+      startDate: "2014-09-01",
+      endDate: "2015-07-01",
+    },
+  ]);
+
+  const [educationInputElements, setEducationInputElements] = useState([
+    {
+      id: initialEducationHistoryID,
+      updateValues: handleEducationExperienceChange,
+    },
+  ]);
+
+  const [skills, setSkills] = useState([
+    {
+      id: initialSkillsID,
+      value: "Web development",
+    },
+  ]);
+
+  const [skillsInputElements, setSkillsInputElements] = useState([
+    {
+      id: initialSkillsID,
+      updateValues: handleSkillsChange,
+    },
+  ]);
+
+  // map over comps for rendering
+  const allWorkExperience = workExperience.map((item) => {
     return (
-      <div className="content--container">
-        <div className="content--title-container">
-          <h1>CV Generator</h1>
-        </div>
-        <div className="content--input">
-          <PersonalInput
-            updateValues={this.handlePersonalInfoChange}
-            personalInfo={this.state.personalInfo}
-          />
-          <section className="work-input">
-            <h1 className="title">Work experience</h1>
-            {allWorkExperienceInputElements}
-            <Add tag="work" addElement={this.addElement} />
-            {allWorkExperienceInputElements.length !== 0 && (
-              <hr className="rounded"></hr>
-            )}
-          </section>
-          <section className="education-input">
-            <h1 className="title">Education & learning</h1>
-            {allEducationInputs}
-            <Add tag="education" addElement={this.addElement} />
-            {allEducationInputs.length !== 0 && <hr className="rounded"></hr>}
-          </section>
-          <section className="skills-input">
-            <h1 className="title">Skills</h1>
-            {allSkillsInputs}
-            <Add tag="skills" addElement={this.addElement} />
-            <button className="reset" onClick={this.resetForm}>
-              Reset
-            </button>
-            <button className="generate-pdf">Generate PDF</button>
-          </section>
-        </div>
-        <div className="content--CV">
-          <Header
-            firstName={this.state.personalInfo.firstName}
-            lastName={this.state.personalInfo.lastName}
-            currentJobTitle={this.state.personalInfo.currentJobTitle}
-            email={this.state.personalInfo.email}
-            linkedIn={this.state.personalInfo.linkedIn}
-            phone={this.state.personalInfo.phone}
-          />
-          <main>
-            <div className="work-container">
-              <h1 className="title">Work experience</h1>
-              {allWorkExperience}
-            </div>
-            <div className="education-container">
-              <h1 className="title">Education & Learning</h1>
-              {allEducation}
-            </div>
-            <div className="skills-container">
-              <h1 className="title">Skills</h1>
-              <ul>{allSkills}</ul>
-            </div>
-          </main>
-        </div>
-      </div>
+      <Work
+        key={item.id}
+        id={item.id}
+        jobTitle={item.jobTitle}
+        employer={item.employer}
+        startDate={item.startDate}
+        endDate={item.endDate}
+        comments={item.comments}
+      />
     );
-  }
+  });
+
+  const allWorkExperienceInputElements = workInputElements.map((item) => {
+    return (
+      <WorkInput
+        key={item.id}
+        id={item.id}
+        updateValues={item.updateValues}
+        workInfo={workExperience}
+        deleteElements={deleteElements}
+        tag="work"
+      />
+    );
+  });
+
+  const allEducation = education.map((item) => {
+    return (
+      <Education
+        key={item.id}
+        id={item.id}
+        degree={item.degree}
+        institution={item.institution}
+        startDate={item.startDate}
+        endDate={item.endDate}
+      />
+    );
+  });
+  const allEducationInputs = educationInputElements.map((item) => {
+    return (
+      <EducationInput
+        key={item.id}
+        id={item.id}
+        updateValues={item.updateValues}
+        educationInfo={education}
+        deleteElements={deleteElements}
+        tag="education"
+      />
+    );
+  });
+
+  const allSkills = skills.map((item) => {
+    return <Skills key={item.id} id={item.id} value={item.value} />;
+  });
+
+  const allSkillsInputs = skillsInputElements.map((item) => {
+    return (
+      <SkillsInput
+        key={item.id}
+        id={item.id}
+        updateValues={item.updateValues}
+        skillsInfo={skills}
+        deleteElements={deleteElements}
+        tag="skills"
+      />
+    );
+  });
+
+  return (
+    <div className="content--container">
+      <div className="content--title-container">
+        <h1>CV Generator</h1>
+      </div>
+      <div className="content--input">
+        <PersonalInput
+          updateValues={handlePersonalInfoChange}
+          personalInfo={personalInfo}
+        />
+        <section className="work-input">
+          <h1 className="title">Work experience</h1>
+          {allWorkExperienceInputElements}
+          <Add tag="work" addElement={addElement} />
+          {allWorkExperienceInputElements.length !== 0 && (
+            <hr className="rounded"></hr>
+          )}
+        </section>
+        <section className="education-input">
+          <h1 className="title">Education & learning</h1>
+          {allEducationInputs}
+          <Add tag="education" addElement={addElement} />
+          {allEducationInputs.length !== 0 && <hr className="rounded"></hr>}
+        </section>
+        <section className="skills-input">
+          <h1 className="title">Skills</h1>
+          {allSkillsInputs}
+          <Add tag="skills" addElement={addElement} />
+          <button className="reset" onClick={resetForm}>
+            Reset
+          </button>
+          <button className="generate-pdf">Generate PDF</button>
+        </section>
+      </div>
+      <div className="content--CV">
+        <Header
+          firstName={personalInfo.firstName}
+          lastName={personalInfo.lastName}
+          currentJobTitle={personalInfo.currentJobTitle}
+          email={personalInfo.email}
+          linkedIn={personalInfo.linkedIn}
+          phone={personalInfo.phone}
+        />
+        <main>
+          <div className="work-container">
+            <h1 className="title">Work experience</h1>
+            {allWorkExperience}
+          </div>
+          <div className="education-container">
+            <h1 className="title">Education & Learning</h1>
+            {allEducation}
+          </div>
+          <div className="skills-container">
+            <h1 className="title">Skills</h1>
+            <ul>{allSkills}</ul>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 }
