@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./styles/styles.css";
 import Header from "./components/Header";
 import Skills from "./components/Skills";
@@ -10,8 +10,8 @@ import EducationInput from "./components/forms/EducationInput";
 import SkillsInput from "./components/forms/SkillsInput";
 import Add from "./components/buttons/Add";
 import { nanoid } from "nanoid";
-// import jsPDF from "jspdf";
-// import ReactDOMServer from "react-dom/server";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function App() {
   // initial IDs to link input elements with UI elements
@@ -198,15 +198,25 @@ export default function App() {
     setSkillsInputElements([]);
   };
 
-  //todo -> implement below to generate a PDF file
-  // const generatePDF = () => {
-  //   select JSX elem (have to use hooks probably)
-  //   const jsxElem = ???
-  //   const report = new jsPDF({ format: "a4", unit: "px" });
-  //   report.html(ReactDOMServer.renderToString(jsxElem)).then(() => {
-  //     report.save("CV.pdf");
-  //   });
-  // };
+  // generate PDF logic
+  //? works OK for ~1 page content, blurry if overflowing
+  const [loader, setLoader] = useState(false);
+  const contentRef = useRef(null);
+
+  const generatePDF = () => {
+    setLoader(true);
+    html2canvas(contentRef.current, { scale: 3, logging: true }).then(
+      (canvas) => {
+        const pdf = new jsPDF("p", "mm", "a4");
+        const imgData = canvas.toDataURL("image/png");
+
+        // last 2 params are width and height
+        pdf.addImage(imgData, "PNG", 0, 0, 211, 398);
+        setLoader(false);
+        pdf.save("CV.pdf");
+      }
+    );
+  };
 
   // state
   const [personalInfo, setPersonalInfo] = useState({
@@ -369,10 +379,16 @@ export default function App() {
           <button className="reset" onClick={resetForm}>
             Reset
           </button>
-          <button className="generate-pdf">Generate PDF</button>
+          <button
+            className="generate-pdf"
+            onClick={generatePDF}
+            disabled={!(loader === false)}
+          >
+            {loader ? <span>Generating</span> : <span>Generate PDF</span>}
+          </button>
         </section>
       </div>
-      <div className="content--CV">
+      <div className="content--CV" ref={contentRef}>
         <Header
           firstName={personalInfo.firstName}
           lastName={personalInfo.lastName}

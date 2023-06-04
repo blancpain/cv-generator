@@ -56,7 +56,7 @@ header {
 
 .header--left,
 .header--right {
-  z-index: 2;
+  position: relative;
 }
 
 .header--shape-divider {
