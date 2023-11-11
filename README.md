@@ -1,5 +1,10 @@
-# CV Generator
+# CV Generator 📄✨
 
-First project using React. Getting familiar with state, props and class based components.
+Welcome to the CV Generator, a dynamic and user-friendly CV generation tool.
+
+## TODOs
+- Mobile responsiveness
 
 ## [LIVE PREVIEW](https://blancpain.github.io/cv-generator/)
+
+Feel free to explore the live preview and/or clone for your portfolio. 
